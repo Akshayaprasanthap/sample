@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"> 
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+
+    </head>
+<style>
+    body{
+        background-color: #000535;
+    }
+    h1{
+        color: rgb(255, 255, 255);
+        font-family: 'Times New Roman', Times, serif;
+        padding-top: 20px;
+        font-size: 3vw;
+    }
+    button {
+        background-color:  #1e0076; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1vw;
+    
+    
+    }
+    #b{
+        background-color: #1e0076; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+
+            font-size: 1vw;
+            
+    }
+    .dd{
+        background-color: rgb(223, 223, 223);
+        padding: 50px;
+        border-radius: 30px;
+    }
+    label{
+        font-weight: bold;
+    }
+
+</style>
+<body><div class="container">
+   
+    <form method="post" action="/edit_teacher_details/{{ teacher.teacher.id }}" enctype="multipart/form-data">  
+        {% csrf_token %}
+     
+        <h1 class="text-center ">
+            EDIT DETAILS
+        </h1><br><br>
+        <div class="dd">
+    <div class="form-group">
+        <label>First Name:</label>
+        <input class="form-control" placeholder="first Name" type="text" name="first_name" value="{{ teacher.teacher.first_name }}"><br>
+    </div>
+
+    <div class="form-group">
+        <label>Last Name:</label>
+        <input class="form-control" placeholder="Last Name" type="text" name="last_name" value="{{ teacher.teacher.last_name }}"><br>
+    </div>
+
+    
+    <div class="form-group">
+        <label>Address:</label>
+        <input class="form-control" placeholder="Address " type="text" name="address" value="{{ teacher.t_address }}"><br>
+    </div>
+
+
+    <!-- <div class="form-group">
+        <label>Username:</label>
+        <input class="form-control" placeholder="Username " type="text" name="Username" value="{{ teacher.teacher.username }}"><br>
+    </div> -->
+
+
+
+    <div class="form-group">    
+        <label>Age:</label>
+        <input class="form-control" placeholder="Age " type="text" name="age" value="{{ teacher.t_age }}"><br>
+    </div>
+
+    <div class="form-group">    
+        <label>Gender:</label>
+        <input class="form-control" placeholder="Gender " type="text" name="gender" value="{{ teacher.t_gender }}"><br>
+    </div>
+
+    <div class="form-group">    
+        <label>Phone:</label>
+        <input class="form-control" placeholder="Phone Number " type="text" name="phone" value="{{ teacher.t_phone }}"><br>
+    </div>
+   
+    <div class="form-group">
+        <label>Email:</label>
+        <input class="form-control" placeholder="Email " type="email" name="email" value="{{ teacher.teacher.email }}"><br>
+    </div>
+
+    <div class="form-group">
+        <label>Course:</label>
+        <select class="form-control" name="course" id="courseInput">
+        
+            {% for i in course %}
+    
+            <option value="{{ i.id }}">{{ i.crs_name }}</option>
+    
+            {% endfor %}
+        </select><br>
+    </div>
+
+    <div class="form-group">
+    <h6>Teacher Image :</h6>
+    {% if teacher.t_image %}
+
+    <img src="{{ teacher.t_image.url }}" class="img-thumbinail" width="150" height="150"><br>
+    <input type="file" name="file" class="form-control mt-3" accept="image/*" value="{{ teacher.t_image }}" >
+    {% else %}
+    <img src="{% static 'images/profile.jpg' %}" class="img-thumbinail" alt="" width="150" height="150">
+    <input type="file" name="file" class="form-control mt-3" accept="image/*" value="{{ teacher.t_image }}" >
+    {% endif %}
+</div>
+    
+    <button type="submit">Update</button>
+     
+
+        <input type=button value="Previous Page" onClick="javascript:history.go(-1);" id="b">
+
+        <script>
+            window.onload = function () {
+                const $courseSelect = document.querySelector("#courseInput")
+                $courseSelect.value = `{{teacher.course.id}}`;
+                };
+        </script>
+    </form>
+</div><br><br>
+</div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<style>
+    body{
+        
+        background-color: rgb(255, 255, 255);
+    }
+        button {
+            background-color: #1e0076;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1vw;
+
+        }
+        button:hover{
+            background-color: #000000;
+            color: white;
+        }
+        #b{
+        background-color:  #1e0076; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1vw;
+    
+            
+    }
+    #b:hover{
+            background-color: #000000;
+            color: white;
+    }
+    #ss{
+        background-color: rgb(255, 255, 255);
+    }
+    #i{
+        background-color: rgb(68, 103, 154);
+        padding: 40px;
+        border-radius: 30px;
+    }
+    label{
+        font-weight: bold;
+    }
+    h1{
+        color:rgb(209, 200, 255);
+        font-family: 'Times New Roman', Times, serif;
+        text-align: center;
+        font-size: 3vw;
+        
+    }
+</style>
+<body>
+    <form method="post" action="/editpage/{{ teacher.id }}">
+        {% csrf_token %}
+
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand ms-3 text-white" href="#"><B> HOME</B></a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                    <a class="nav-link mx- text-white" href="{% url 'logout' %}">LOGOUT</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        <div class="container">
+    <br><br>
+    <!-- <p>Phone: {{ students.phone }}</p> -->
+    <div class="card"  id="i">
+        <div class="card-body"> 
+            <h1 text="display-6">TEACHER DETAILS</h1><br>
+            {% if teacher.t_image %}
+            <img src="{{ teacher.t_image.url }}"  width="200" height="200" class="rounded-circle"><br>
+            
+            {% else %}
+            <img src="{% static 'images/profile.jpg' %}" alt="" width="200" height="200" class="rounded-circle">
+            {% endif %}
+
+            <br><br>
+    <div class="card"  id="ss"><br><br>
+        <div class="card-body">
+            <div class="form-group">
+                <label>First Name:</label>
+                <input class="form-control" placeholder="first Name" type="text" name="first_name" value="{{ teacher.teacher.first_name }}"><br>
+            </div>
+        
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input class="form-control" placeholder="Last Name" type="text" name="last_name" value="{{ teacher.teacher.last_name }}"><br>
+            </div>
+
+            <div class="form-group">
+                <label>Address:</label>
+                <input class="form-control" placeholder="Address " type="text" name="address" value="{{ teacher.t_address }}"><br>
+            </div>
+
+            <div class="form-group">
+                <label>Username:</label>
+                <input class="form-control" placeholder="Username " type="text" name="username" value="{{ teacher.teacher.username }}"><br>
+            </div>
+
+            <div class="form-group">
+                <label>Age:</label>
+                <input class="form-control" placeholder="Age " type="number" name="age" value="{{ teacher.t_age }}"><br>
+            </div>
+
+            <div class="form-group">
+                <label>Gender:</label>
+                <input class="form-control" placeholder="Gender " type="text" name="gender" value="{{ teacher.t_gender }}"><br>
+            </div>
+
+            <div class="form-group">    
+                <label>Phone:</label>
+                <input class="form-control" placeholder="Phone Number " type="text" name="phone" value="{{ teacher.t_phone }}"><br>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input class="form-control" placeholder="Email " type="text" name="email" value="{{ teacher.teacher.email }}"><br>
+            </div>
+        
+            <div class="form-group">
+                <label>Course:</label>
+                <input class="form-control" placeholder="Course " type="text" name="course" value="{{ teacher.course.crs_name }}"><br>
+            </div>
+
+            <div class="form-group">
+                <label>Image:</label>
+    {% if teacher.t_image %}
+    <img src="{{ teacher.t_image.url }}"  width="150" height="150" class="img-thumbinail"><br>
+    
+    {% else %}
+    <img src="{% static 'images/profile.jpg' %}" alt="" width="150" height="150" class="img-thumbinail">
+    {% endif %}
+              
+            </div>
+   
+   
+            <div class="row">
+                <div class="col-sm-12 profile-section text-secondary">
+                    
+                    <a href="{% url 'editpage' teacher.id %}"><button type="submit" >edit</button></a>
+                    <input type=button value="Previous Page" onClick="javascript:history.go(-1);" id="b">
+           
+                </div>
+            </div>
+<br>
+
+</div>
+</div>
+</div>
+</form>
+</div>
+</body>
+</html>
